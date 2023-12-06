@@ -705,6 +705,7 @@ bool inverted_list_binary_search(int* result, bool exibir_caminho, char *chave, 
  * @param t Ponteiro para o índice do tipo Árvore-B no qual será inserida a chave.
  */
 void btree_insert(char *chave, btree *t) {
+	printf("DEBUG(btree_insert)\n");
     // Verifica se a árvore está vazia
     if (t->rrn_raiz == -1) {
         // Cria um novo nó
@@ -750,6 +751,7 @@ void btree_insert(char *chave, btree *t) {
  * @return Retorna uma struct do tipo promovido_aux que contém a chave promovida e o RRN do filho direito.
  */
 promovido_aux btree_insert_aux(char *chave, int rrn, btree *t) {
+	printf("DEBUG(btree_insert_aux)\n");
     promovido_aux promo = {.filho_direito = -1};
     // Lê o nó atual
     btree_node node = btree_read(rrn, t);
@@ -814,6 +816,7 @@ promovido_aux btree_insert_aux(char *chave, int rrn, btree *t) {
  * @return Retorna uma struct do tipo promovido_aux que contém a chave promovida e o RRN do filho direito.
  */
 promovido_aux btree_divide(promovido_aux promo, btree_node *node, int i, btree *t) {
+	printf("DEBUG(btree_divide)\n");
     // Cria um novo nó
     btree_node new_node = btree_node_malloc(t);
     new_node.folha = node->folha;
@@ -956,35 +959,9 @@ bool btree_borrow_or_merge(btree_node *node, int i, btree *t) {
  * @return Indica se a chave foi encontrada.
  */
 bool btree_search(char *result, bool exibir_caminho, char *chave, int rrn, btree *t) {
-    // Se o RRN é -1, a árvore está vazia ou a chave não foi encontrada.
-    if (rrn == -1) {
-        return false;
-    }
-
-    // Se exibir_caminho é verdadeiro, imprime o RRN do nó atual.
-    if (exibir_caminho) {
-        printf("%d ", rrn);
-    }
-
-    // Lê o nó atual da árvore.
-    btree_node node = btree_read(rrn, t);
-
-    // Realiza uma busca binária no nó atual para encontrar a chave.
-    int i;
-    bool found = btree_binary_search(&i, exibir_caminho, chave, &node, t);
-
-    // Se a chave foi encontrada
-    if (found) {
-        // Se result não é NULL, copia a chave encontrada para result.
-        if (result != NULL) {
-            strncpy(result, node.chaves[i], t->tam_chave);
-        }
-        // Retorna verdadeiro, indicando que a chave foi encontrada.
-        return true;
-    } else {
-        // Se a chave não foi encontrada, realiza uma busca recursiva no filho correspondente.
-        return btree_search(result, exibir_caminho, chave, node.filhos[i], t);
-    }
+    /*IMPLEMENTE A FUNÇÃO AQUI*/
+	printf(ERRO_NAO_IMPLEMENTADO, "btree_search");
+	return false;
 }
 
 /**
