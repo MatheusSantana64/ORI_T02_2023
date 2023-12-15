@@ -11,48 +11,41 @@
 
 /* Função de comparação entre chaves do índice corredores_idx */
 int order_corredores_idx(const void *key, const void *elem) {
-    printf("\tDEBUG(order_corredores_idx): Entrou na função order_corredores_idx\n");
     return strncmp(key, elem, TAM_ID_CORREDOR-1);
 }
 
 /* Função de comparação entre chaves do índice veiculos_idx */
 int order_veiculos_idx(const void *key, const void *elem) {
-    printf("\tDEBUG(F): Entrou na função F\n");
     /* IMPLEMENTAR A FUNÇÃO AQUI */
     printf(ERRO_NAO_IMPLEMENTADO, "order_veiculos_idx");
 }
 
 /* Função de comparação entre chaves do índice pistas_idx */
 int order_pistas_idx(const void *key, const void *elem) {
-    printf("\tDEBUG(F): Entrou na função F\n");
     /* IMPLEMENTAR A FUNÇÃO AQUI */
     printf(ERRO_NAO_IMPLEMENTADO, "order_pistas_idx");
 }
 
 /* Função de comparação entre chaves do índice corridas_idx */
 int order_corridas_idx(const void *key, const void *elem) {
-    printf("\tDEBUG(F): Entrou na função F\n");
     /* IMPLEMENTAR A FUNÇÃO AQUI */
     printf(ERRO_NAO_IMPLEMENTADO, "order_corridas_idx");
 }
 
 /* Função de comparação entre chaves do índice nome_pista_idx */
 int order_nome_pista_idx(const void *key, const void *elem) {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/* IMPLEMENTAR A FUNÇÃO AQUI */
     printf(ERRO_NAO_IMPLEMENTADO, "order_nome_pista_idx");
 }
 
 /* Função de comparação entre chaves do índice preco_veiculo_idx */
 int order_preco_veiculo_idx(const void *key, const void *elem) {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/* IMPLEMENTAR A FUNÇÃO AQUI */
     printf(ERRO_NAO_IMPLEMENTADO, "order_preco_veiculo_idx");
 }
 
 /* Função de comparação entre chaves do índice secundário de corredor_veiculos_secundario_idx */
 int order_corredor_veiculo_idx(const void *key, const void *elem) {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/* IMPLEMENTAR A FUNÇÃO AQUI */
     printf(ERRO_NAO_IMPLEMENTADO, "order_corredor_veiculo_idx");
 }
@@ -60,7 +53,6 @@ int order_corredor_veiculo_idx(const void *key, const void *elem) {
 /* Cria o índice respectivo */
 
 void criar_corredores_idx() { // Função veio pronta
-    printf("\tDEBUG(criar_corredores_idx): Entrou na função criar_corredores_idx\n");
     char corredor_str[TAM_CHAVE_CORREDORES_IDX + 1];
     for (unsigned i = 0; i < qtd_registros_corredores; ++i) {
         Corredor c = recuperar_registro_corredor(i);
@@ -72,7 +64,6 @@ void criar_corredores_idx() { // Função veio pronta
 }
 
 void criar_veiculos_idx() {
-    printf("\tDEBUG(criar_veiculos_idx): Entrou na função criar_veiculos_idx\n");
     // Define uma string para armazenar a chave do veículo (id_veiculo + RRN)
     char veiculo_str[TAM_CHAVE_VEICULOS_IDX + 1];
 
@@ -93,7 +84,6 @@ void criar_veiculos_idx() {
 }
 
 void criar_pistas_idx() {
-    printf("\tDEBUG(criar_pistas_idx): Entrou na função criar_pistas_idx\n");
     // Define uma string para armazenar a chave da pista (id_pista + RRN)
     char pista_str[TAM_CHAVE_PISTAS_IDX + 1];
 
@@ -114,7 +104,6 @@ void criar_pistas_idx() {
 }
 
 void criar_corridas_idx() {
-    printf("\tDEBUG(criar_corridas_idx): Entrou na função criar_corridas_idx\n");
     // Define uma string para armazenar a chave da corrida (ocorrencia + id_pista + RRN)
     char corrida_str[TAM_CHAVE_CORRIDAS_IDX + 1];
 
@@ -135,7 +124,6 @@ void criar_corridas_idx() {
 }
 
 void criar_nome_pista_idx() {
-    printf("\tDEBUG(criar_nome_pista_idx): Entrou na função criar_nome_pista_idx\n");
     char pista_str[TAM_CHAVE_NOME_PISTA_IDX + 1];
     for (unsigned i = 0; i < qtd_registros_pistas; ++i) {
         Pista p = recuperar_registro_pista(i);
@@ -147,7 +135,6 @@ void criar_nome_pista_idx() {
 }
 
 void criar_preco_veiculo_idx() {
-    printf("\tDEBUG(criar_preco_veiculo_idx): Entrou na função criar_preco_veiculo_idx\n");
     // Define uma string para armazenar a chave do veículo (preco + id_veiculo)
     char veiculo_str[TAM_CHAVE_PRECO_VEICULO_IDX + 1];
 
@@ -168,7 +155,6 @@ void criar_preco_veiculo_idx() {
 }
 
 void criar_corredor_veiculos_idx() {
-    printf("\tDEBUG(criar_corredor_veiculos_idx): Entrou na função criar_corredor_veiculos_idx\n");
     // Inicializar os índices
     corredor_veiculos_idx.arquivo_primario = malloc(MAX_REGISTROS * TAM_CHAVE_CORREDOR_VEICULO_PRIMARIO_IDX);
     corredor_veiculos_idx.arquivo_secundario = malloc(MAX_REGISTROS * TAM_CHAVE_CORREDOR_VEICULO_SECUNDARIO_IDX);
@@ -192,7 +178,6 @@ void criar_corredor_veiculos_idx() {
 
 /* Exibe um registro com base no RRN */
 bool exibir_corredor(int rrn) {
-    printf("\tDEBUG(exibir_corredor): Entrou na função exibir_corredor\n");
     if (rrn < 0)
         return false;
  
@@ -203,7 +188,6 @@ bool exibir_corredor(int rrn) {
 }
 
 bool exibir_veiculo(int rrn) {
-    printf("\tDEBUG(F): Entrou na função F\n");
     /*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "exibir_veiculo");
 	
@@ -211,7 +195,6 @@ bool exibir_veiculo(int rrn) {
 }
 
 bool exibir_pista(int rrn) {
-    printf("\tDEBUG(F): Entrou na função F\n");
     /*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "exibir_pista");
 	
@@ -219,7 +202,6 @@ bool exibir_pista(int rrn) {
 }
 
 bool exibir_corrida(int rrn) {
-    printf("\tDEBUG(F): Entrou na função F\n");
     /*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "exibir_corrida");
 	
@@ -228,13 +210,11 @@ bool exibir_corrida(int rrn) {
 
 /* Exibe um registro com base na chave de um btree_node */
 bool exibir_btree_corredores(char *chave) {
-    printf("\tDEBUG(exibir_btree_corredores): Entrou na função exibir_btree_corredores\n");
 	int rrn = atoi(chave + TAM_ID_CORREDOR - 1);
     return exibir_corredor(rrn);
 }
 
 bool exibir_btree_veiculos(char *chave) {
-    printf("\tDEBUG(exibir_btree_veiculos): Entrou na função exibir_btree_veiculos\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "exibir_btree_veiculos");
 	
@@ -242,7 +222,6 @@ bool exibir_btree_veiculos(char *chave) {
 }
 
 bool exibir_btree_pistas(char *chave) {
-    printf("\tDEBUG(exibir_btree_pistas): Entrou na função exibir_btree_pistas\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "exibir_btree_pistas");
 	
@@ -250,7 +229,6 @@ bool exibir_btree_pistas(char *chave) {
 }
 
 bool exibir_btree_corridas(char *chave) {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "exibir_btree_corridas");
 	
@@ -258,7 +236,6 @@ bool exibir_btree_corridas(char *chave) {
 }
 
 bool exibir_btree_nome_pista(char *chave) {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "exibir_btree_nome_pista");
 	
@@ -266,7 +243,6 @@ bool exibir_btree_nome_pista(char *chave) {
 }
 
 bool exibir_btree_preco_veiculo(char *chave) {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "exibir_btree_preco_veiculo");
 	
@@ -276,7 +252,6 @@ bool exibir_btree_preco_veiculo(char *chave) {
 /* Recupera do arquivo o registro com o RRN informado
  * e retorna os dados nas structs */
 Corredor recuperar_registro_corredor(int rrn) {
-    printf("\tDEBUG(recuperar_registro_corredor): Entrou na função recuperar_registro_corredor\n");
 	Corredor c;
 	char temp[TAM_REGISTRO_CORREDOR + 1], *p;
 	strncpy(temp, ARQUIVO_CORREDORES + (rrn * TAM_REGISTRO_CORREDOR), TAM_REGISTRO_CORREDOR);
@@ -308,7 +283,6 @@ Corredor recuperar_registro_corredor(int rrn) {
 }
 
 Veiculo recuperar_registro_veiculo(int rrn) {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	Veiculo v;
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "recuperar_registro_veiculo");
@@ -317,7 +291,6 @@ Veiculo recuperar_registro_veiculo(int rrn) {
 }
 
 Pista recuperar_registro_pista(int rrn) {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	Pista p;
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "recuperar_registro_pista");
@@ -326,7 +299,6 @@ Pista recuperar_registro_pista(int rrn) {
 }
 
 Corrida recuperar_registro_corrida(int rrn) {
-    printf("\tDEBUG(F): Entrou na função F\n");
     Corrida c;
 
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
@@ -337,7 +309,6 @@ Corrida recuperar_registro_corrida(int rrn) {
 
 /* Escreve em seu respectivo arquivo na posição informada (RRN) */
 void escrever_registro_corredor(Corredor c, int rrn) {
-    printf("\tDEBUG(escrever_registro_corredor): Entrou na função escrever_registro_corredor\n");
 	char temp[TAM_REGISTRO_CORREDOR + 1], p[TAM_FLOAT_NUMBER];
 	temp[0] = '\0'; p[0] = '\0';
 
@@ -371,26 +342,22 @@ void escrever_registro_corredor(Corredor c, int rrn) {
 }
 
 void escrever_registro_veiculo(Veiculo v, int rrn) {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "escrever_registro_veiculo");
 }
 
 void escrever_registro_pista(Pista p, int rrn) {
-    printf("\tDEBUG(F): Entrou na função F\n");
     /*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "escrever_registro_pista");
 }
 
 void escrever_registro_corrida(Corrida i, int rrn) {
-    printf("\tDEBUG(F): Entrou na função F\n");
     /*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "escrever_registro_corrida");
 }
 
 /* Funções principais */
 void cadastrar_corredor_menu(char *id_corredor, char *nome, char *apelido) {
-    printf("\tDEBUG(cadastrar_corredor_menu): Entrou na função cadastrar_corredor_menu\n");
     // Cria uma string para armazenar a chave do corredor (id_corredor + RRN)
     char corredor_str[TAM_CHAVE_CORREDORES_IDX + 1];
     
@@ -427,49 +394,56 @@ void cadastrar_corredor_menu(char *id_corredor, char *nome, char *apelido) {
 }
 
 void remover_corredor_menu(char *id_corredor) {
-    printf("\tDEBUG(F): Entrou na função F\n");
     /*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "remover_corredor_menu");
 }
 
 void adicionar_saldo_menu(char *id_corredor, double valor) {
-    printf("\tDEBUG(adicionar_saldo_menu): Entrou na função adicionar_saldo_menu\n");
 	adicionar_saldo(id_corredor, valor, true);
 }
 
 void adicionar_saldo(char *id_corredor, double valor, bool flag) {
-    printf("\tDEBUG(F): Entrou na função F\n");
-    /*IMPLEMENTE A FUNÇÃO AQUI*/
-	printf(ERRO_NAO_IMPLEMENTADO, "adicionar_saldo");
+    char corredor_str[TAM_CHAVE_CORREDORES_IDX + 1];
+    sprintf(corredor_str, "%s%04d", id_corredor, qtd_registros_corredores);
+    bool found = btree_search(NULL, false, corredor_str, corredores_idx.rrn_raiz, &corredores_idx);
+    if (!found) {
+        printf(ERRO_REGISTRO_NAO_ENCONTRADO);
+        return;
+    }
+    if (valor <= 0) {
+        printf(ERRO_VALOR_INVALIDO);
+        return;
+    }
+    Corredor c = recuperar_registro_corredor(qtd_registros_corredores);
+    c.saldo += valor;
+    escrever_registro_corredor(c, qtd_registros_corredores);
+    if (flag) {
+        printf(SUCESSO);
+    }
 }
 
 void comprar_veiculo_menu(char *id_corredor, char *id_veiculo) {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "comprar_veiculo_menu");
 }
 
 void cadastrar_veiculo_menu(char *marca, char *modelo, char *poder, int velocidade, int aceleracao, int peso, double preco) {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "cadastrar_veiculo_menu");
 }
 
 void cadastrar_pista_menu(char *nome, int dificuldade, int distancia, int recorde) {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "cadastrar_pista_menu");
 }
 
 void executar_corrida_menu(char *id_pista, char *ocorrencia, char *id_corredores, char *id_veiculos) {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "executar_corrida_menu");
 }
 
 /* Busca */
 void buscar_corredor_id_menu(char *id_corredor) {
-    printf("\tDEBUG(buscar_corredor_id_menu): Entrou na função buscar_corredor_id_menu\n");
 	char result[TAM_CHAVE_CORREDORES_IDX + 1];
     printf(RRN_NOS);
     bool found = btree_search(result, true, id_corredor, corredores_idx.rrn_raiz, &corredores_idx);
@@ -481,20 +455,17 @@ void buscar_corredor_id_menu(char *id_corredor) {
 }
 
 void buscar_pista_id_menu(char *id_pista) {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "buscar_pista_id_menu");
 }
 
 void buscar_pista_nome_menu(char *nome_pista) {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "buscar_pista_nome_menu");
 }
 
 /* Listagem */
 void listar_corredores_id_menu() {
-    printf("\tDEBUG(listar_corredores_id_menu): Entrou na função listar_corredores_id_menu\n");
 	if (qtd_registros_corredores == 0)
 		printf(AVISO_NENHUM_REGISTRO_ENCONTRADO);
 	else
@@ -502,33 +473,28 @@ void listar_corredores_id_menu() {
 }
 
 void listar_corredores_modelo_menu(char *modelo) {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "listar_corredores_modelo_menu");
 }
 
 void listar_veiculos_compra_menu(char *id_corredor) {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "listar_veiculos_compra_menu");
 }
 
 void listar_corridas_periodo_menu(char *data_inicio, char *data_fim) {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "listar_corridas_periodo_menu");
 }
 
 /* Liberar espaço */
 void liberar_espaco_menu() {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "liberar_espaco_menu");
 }
 
 /* Imprimir arquivos de dados */
 void imprimir_arquivo_corredores_menu() {
-    printf("\tDEBUG(imprimir_arquivo_corredores_menu): Entrou na função imprimir_arquivo_corredores_menu\n");
 	if (qtd_registros_corredores == 0)
 		printf(ERRO_ARQUIVO_VAZIO);
 	else
@@ -536,7 +502,6 @@ void imprimir_arquivo_corredores_menu() {
 }
 
 void imprimir_arquivo_veiculos_menu() {
-    printf("\tDEBUG(imprimir_arquivo_veiculos_menu): Entrou na função imprimir_arquivo_veiculos_menu\n");
 	if (qtd_registros_veiculos == 0)
 		printf(ERRO_ARQUIVO_VAZIO);
 	else
@@ -544,7 +509,6 @@ void imprimir_arquivo_veiculos_menu() {
 }
 
 void imprimir_arquivo_pistas_menu() {
-    printf("\tDEBUG(imprimir_arquivo_pistas_menu): Entrou na função imprimir_arquivo_pistas_menu\n");
 	if (qtd_registros_pistas == 0)
 		printf(ERRO_ARQUIVO_VAZIO);
 	else
@@ -552,7 +516,6 @@ void imprimir_arquivo_pistas_menu() {
 }
 
 void imprimir_arquivo_corridas_menu() {
-    printf("\tDEBUG(imprimir_arquivo_corridas_menu): Entrou na função imprimir_arquivo_corridas_menu\n");
 	if (qtd_registros_corridas == 0)
 		printf(ERRO_ARQUIVO_VAZIO);
 	else
@@ -561,7 +524,6 @@ void imprimir_arquivo_corridas_menu() {
 
 /* Imprimir índices primários */
 void imprimir_corredores_idx_menu() {
-    printf("\tDEBUG(imprimir_corredores_idx_menu): Entrou na função imprimir_corredores_idx_menu\n");
 	if (corredores_idx.qtd_nos == 0)
 		printf(ERRO_ARQUIVO_VAZIO);
 	else
@@ -569,44 +531,37 @@ void imprimir_corredores_idx_menu() {
 }
 
 void imprimir_veiculos_idx_menu() {
-    printf("\tDEBUG(imprimir_veiculos_idx_menu): Entrou na função imprimir_veiculos_idx_menu\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "imprimir_veiculos_idx_menu");
 }
 
 void imprimir_pistas_idx_menu() {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "imprimir_pistas_idx_menu");
 }
 
 void imprimir_corridas_idx_menu() {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "imprimir_corridas_idx_menu");
 }
 
 /* Imprimir índices secundários */
 void imprimir_nome_pista_idx_menu() {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "imprimir_nome_pista_idx_menu");
 }
 
 void imprimir_preco_veiculo_idx_menu() {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "imprimir_preco_veiculo_idx_menu");
 }
 
 void imprimir_corredor_veiculos_secundario_idx_menu() {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "imprimir_corredor_veiculos_secundario_idx_menu");
 }
 
 void imprimir_corredor_veiculos_primario_idx_menu(){
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "imprimir_corredor_veiculos_primario_idx_menu");
 }
@@ -623,7 +578,6 @@ void imprimir_corredor_veiculos_primario_idx_menu(){
  * @param t Ponteiro para a Lista Invertida na qual serão inseridas as chaves.
  */
 void inverted_list_insert(char *chave_secundaria, char *chave_primaria, inverted_list *t) {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "inverted_list_insert");
 }
@@ -658,7 +612,6 @@ void inverted_list_insert(char *chave_secundaria, char *chave_primaria, inverted
  * @return Indica se a chave foi encontrada.
  */
 bool inverted_list_secondary_search(int *result, bool exibir_caminho, char *chave_secundaria, inverted_list *t) {
-    printf("\tDEBUG(F): Entrou na função F\n");
     /*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "inverted_list_secondary_search");
 	return false;}
@@ -699,7 +652,6 @@ bool inverted_list_secondary_search(int *result, bool exibir_caminho, char *chav
  * @return Indica a quantidade de chaves encontradas.
  */
 int inverted_list_primary_search(char result[][TAM_CHAVE_CORREDOR_VEICULO_PRIMARIO_IDX], bool exibir_caminho, int indice, int *indice_final, inverted_list *t) {
-    printf("\tDEBUG(F): Entrou na função F\n");
 /*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "inverted_list_primary_search");
 	return -1;
@@ -717,7 +669,6 @@ int inverted_list_primary_search(char result[][TAM_CHAVE_CORREDOR_VEICULO_PRIMAR
  * @return Indica se a chave foi encontrada.
  */
 bool inverted_list_binary_search(int* result, bool exibir_caminho, char *chave, inverted_list *t) {
-    printf("\tDEBUG(F): Entrou na função F\n");
     /*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "inverted_list_binary_search");
 	return false;
@@ -744,36 +695,17 @@ bool inverted_list_binary_search(int* result, bool exibir_caminho, char *chave, 
  * @param t Ponteiro para o índice do tipo Árvore-B no qual será inserida a chave.
  */
 void btree_insert(char *chave, btree *t) {
-    printf("\tDEBUG(btree_insert): Entrou na função btree_insert\n");
-    printf("\tDEBUG(btree_insert): Chave a ser inserida: %s\n", chave);
-    if (t->rrn_raiz == -1) {
-        btree_node root = btree_node_malloc(t);
-        root.qtd_chaves = 1;
-        strcpy(root.chaves[0], chave);
-        root.folha = true;
-        root.this_rrn = t->qtd_nos;
-        t->rrn_raiz = root.this_rrn;
-        t->qtd_nos++;
-        btree_write(root, t);
-    } else {
-        if (t->rrn_raiz < 0 || t->rrn_raiz >= t->qtd_nos) {
-            printf("Erro: RRN invalido\n");
-            return;
-        }
-        promovido_aux promo = btree_insert_aux(chave, t->rrn_raiz, t);
-        printf("\tDEBUG(btree_insert): Valor de qtd_chaves antes de chamar btree_insert_aux: %d\n", t->qtd_nos);
-        if (promo.filho_direito != -1) {
-            btree_node new_root = btree_node_malloc(t);
-            new_root.qtd_chaves = 1;
-            strcpy(new_root.chaves[0], promo.chave_promovida);
-            new_root.filhos[0] = t->rrn_raiz;
-            new_root.filhos[1] = promo.filho_direito;
-            new_root.folha = false;
-            new_root.this_rrn = t->qtd_nos;
-            t->rrn_raiz = new_root.this_rrn;
-            t->qtd_nos++;
-            btree_write(new_root, t);
-        }
+    promovido_aux promo = btree_insert_aux(chave, t->rrn_raiz, t);
+    if (promo.chave_promovida[0] != '\0') {
+        btree_node new_root = btree_node_malloc(t);
+        strcpy(new_root.chaves[0], promo.chave_promovida);
+        new_root.filhos[0] = t->rrn_raiz;
+        new_root.filhos[1] = promo.filho_direito;
+        new_root.qtd_chaves = 1;
+        new_root.folha = false;
+        new_root.this_rrn = t->qtd_nos;
+        t->rrn_raiz = t->qtd_nos++;
+        btree_write(new_root, t);
     }
 }
 
@@ -787,59 +719,40 @@ void btree_insert(char *chave, btree *t) {
  * @return Retorna uma struct do tipo promovido_aux que contém a chave promovida e o RRN do filho direito.
  */
 promovido_aux btree_insert_aux(char *chave, int rrn, btree *t) {
-    printf("\tDEBUG(btree_insert_aux): Entrou na função btree_insert_aux\n");
-    printf("\tDEBUG(btree_insert_aux): Chave a ser inserida: %s, RRN: %d\n", chave, rrn);
     promovido_aux promo;
-    promo.filho_direito = -1;
-
-    btree_node node = btree_read(rrn, t);
-
-    int i;
-    bool found = btree_binary_search(&i, false, chave, &node, t);
-
-    if (found) {
-        printf("Erro: Chave duplicada\n");
+    if (rrn < 0) {
+        strcpy(promo.chave_promovida, chave);
+        promo.filho_direito = -1;
         return promo;
     }
-
-    if (node.folha) {
-        printf("\tDEBUG(btree_insert_aux): Entrou no bloco node.folha\n");
-        for (int j = node.qtd_chaves; j > i; j--) {
-            printf("\tDEBUG(btree_insert_aux): Movendo chave de posição %d para posição %d\n", j - 1, j);
-            strcpy(node.chaves[j], node.chaves[j - 1]);
-        }
-        printf("\tDEBUG(btree_insert_aux): Inserindo chave na posição %d\n", i);
-        strcpy(node.chaves[i], chave);
-        printf("\tDEBUG(btree_insert_aux): Valor de qtd_chaves antes do incremento: %d\n", node.qtd_chaves);
-        node.qtd_chaves++;
-        printf("\tDEBUG(btree_insert_aux): Valor de qtd_chaves após o incremento: %d\n", node.qtd_chaves);
-        btree_write(node, t);
-    } else {
-        printf("\tDEBUG(btree_insert_aux): Entrou no bloco else (node não é folha)\n");
-        promovido_aux promo_filho = btree_insert_aux(chave, node.filhos[i], t);
-        if (promo_filho.filho_direito != -1) {
-            printf("\tDEBUG(btree_insert_aux): Filho direito de promo_filho não é -1\n");
-            for (int j = node.qtd_chaves; j > i; j--) {
-                printf("\tDEBUG(btree_insert_aux): Movendo chave de posição %d para posição %d\n", j - 1, j);
-                strcpy(node.chaves[j], node.chaves[j - 1]);
-                printf("\tDEBUG(btree_insert_aux): Movendo filho de posição %d para posição %d\n", j, j + 1);
-                node.filhos[j + 1] = node.filhos[j];
-            }
-            printf("\tDEBUG(btree_insert_aux): Inserindo chave promovida na posição %d\n", i);
-            strcpy(node.chaves[i], promo_filho.chave_promovida);
-            printf("\tDEBUG(btree_insert_aux): Inserindo filho direito na posição %d\n", i + 1);
-            node.filhos[i + 1] = promo_filho.filho_direito;
-            node.qtd_chaves++;
-            printf("\tDEBUG(btree_insert_aux): Incrementando qtd_chaves para %d\n", node.qtd_chaves);
-            btree_write(node, t);
-        }
-        if (node.qtd_chaves == t->tam_chave) {
-            printf("\tDEBUG(btree_insert_aux): qtd_chaves é igual a tam_chave\n");
-            promo = btree_divide(promo, &node, i, t);
-        }
+    btree_node node = btree_read(rrn, t);
+    int i = 0;
+    while (i < node.qtd_chaves && t->compar(chave, node.chaves[i]) > 0) {
+        i++;
     }
-
-    return promo;
+    if (i < node.qtd_chaves && t->compar(chave, node.chaves[i]) == 0) {
+        printf("Chave duplicada\n");
+        return promo;
+    }
+    promo = btree_insert_aux(chave, node.filhos[i], t);
+    if (promo.chave_promovida[0] == '\0') {
+        return promo;
+    }
+    if (node.qtd_chaves < t->tam_chave) {
+        int j = node.qtd_chaves;
+        while (j > i) {
+            strcpy(node.chaves[j], node.chaves[j - 1]);
+            node.filhos[j + 1] = node.filhos[j];
+            j--;
+        }
+        strcpy(node.chaves[i], promo.chave_promovida);
+        node.filhos[i + 1] = promo.filho_direito;
+        node.qtd_chaves++;
+        btree_write(node, t);
+        promo.chave_promovida[0] = '\0';
+        return promo;
+    }
+    return btree_divide(promo, &node, i, t);
 }
 
 /**
@@ -852,7 +765,6 @@ promovido_aux btree_insert_aux(char *chave, int rrn, btree *t) {
  * @return Retorna uma struct do tipo promovido_aux que contém a chave promovida e o RRN do filho direito.
  */
 promovido_aux btree_divide(promovido_aux promo, btree_node *node, int i, btree *t) {
-    printf("\tDEBUG(btree_divide): Entrou na função btree_divide\n");
     promovido_aux p;
     btree_node new_node = btree_node_malloc(t);
 
@@ -906,7 +818,6 @@ promovido_aux btree_divide(promovido_aux promo, btree_node *node, int i, btree *
  * @param t Ponteiro para o índice do tipo Árvore-B do qual será removida a chave.
  */
 void btree_delete(char *chave, btree *t) {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "btree_delete");
 }
@@ -921,7 +832,6 @@ void btree_delete(char *chave, btree *t) {
  * @return Indica se a remoção deixou o nó que foi processado com menos chaves que o mínimo necessário.
  */
 bool btree_delete_aux(char *chave, int rrn, btree *t) {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "btree_delete_aux");
 
@@ -938,7 +848,6 @@ bool btree_delete_aux(char *chave, int rrn, btree *t) {
  * @return Indica se a redistribuição ou concatenação deixou o nó pai com menos chaves que o mínimo necessário.
  */
 bool btree_borrow_or_merge(btree_node *node, int i, btree *t) {
-    printf("\tDEBUG(F): Entrou na função F\n");
     /*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "btree_borrow_or_merge");
 
@@ -989,34 +898,23 @@ bool btree_borrow_or_merge(btree_node *node, int i, btree *t) {
  * @return Indica se a chave foi encontrada.
  */
 bool btree_search(char *result, bool exibir_caminho, char *chave, int rrn, btree *t) {
-    printf("\tDEBUG(btree_search): Entrou na função btree_search\n");
-    printf("\tDEBUG(btree_search): Chave a ser buscada: %s, RRN: %d\n", chave, rrn);
-    if (rrn < 0 || rrn >= t->qtd_nos) {
-        printf("\tDEBUG(btree_read): ERRO!!! RRN inválido\n");
+    if (rrn < 0) {
         return false;
     }
-
     btree_node node = btree_read(rrn, t);
-
-    if (exibir_caminho) {
-        printf("%d ", rrn);
+    int i = 0;
+    while (i < node.qtd_chaves && t->compar(chave, node.chaves[i]) > 0) {
+        i++;
     }
-
-    int i;
-    bool found = btree_binary_search(&i, exibir_caminho, chave, &node, t);
-
-    if (found) {
+    if (i < node.qtd_chaves && t->compar(chave, node.chaves[i]) == 0) {
         if (result != NULL) {
-            strncpy(result, node.chaves[i], t->tam_chave);
+            strcpy(result, node.chaves[i]);
         }
         return true;
+    } else if (node.folha) {
+        return false;
     } else {
-        if (node.folha) {
-            return false;
-        } else {
-            rrn = node.filhos[i];
-            return btree_search(result, exibir_caminho, chave, rrn, t);
-        }
+        return btree_search(result, exibir_caminho, chave, node.filhos[i], t);
     }
 }
 
@@ -1033,14 +931,10 @@ bool btree_search(char *result, bool exibir_caminho, char *chave, int rrn, btree
  * @return Indica se a chave foi encontrada.
  */
 bool btree_binary_search(int *result, bool exibir_caminho, char* chave, btree_node* node, btree* t) {
-    printf("\tDEBUG(btree_binary_search): Entrou na função btree_binary_search\n");
-    printf("\tDEBUG(btree_binary_search): Chave a ser buscada: %s\n", chave);
     int i = busca_binaria(chave, node->chaves[0], node->qtd_chaves, t->tam_chave+1, t->compar, exibir_caminho, +1);
     if (result != NULL) {
         *result = i;
-        printf("\tDEBUG(btree_binary_search): Índice da chave encontrada ou do filho onde ela deve estar: %d\n", *result);
     }
-    printf("\tDEBUG(btree_binary_search): Resultado da busca: %d\n", i >= 0 && i < node->qtd_chaves && !t->compar(chave, node->chaves[i]));
     return i >= 0 && i < node->qtd_chaves && !t->compar(chave, node->chaves[i]);
 }
 
@@ -1072,7 +966,6 @@ bool btree_binary_search(int *result, bool exibir_caminho, char* chave, btree_no
  * @return Indica se alguma chave foi impressa.
  */
 bool btree_print_in_order(char *chave_inicio, char *chave_fim, bool (*exibir)(char *chave), int rrn, btree *t) {
-    printf("\tDEBUG(btree_print_in_order): Entrou na função btree_print_in_order\n");
 	/*IMPLEMENTE A FUNÇÃO AQUI*/
 	printf(ERRO_NAO_IMPLEMENTADO, "btree_print_in_order");
 	return false;
@@ -1085,33 +978,9 @@ bool btree_print_in_order(char *chave_inicio, char *chave_fim, bool (*exibir)(ch
  * @param t Árvore-B na qual será feita a leitura do nó.
  */
 btree_node btree_read(int rrn, btree *t) {
-    printf("\tDEBUG(btree_read): Entrou na função btree_read\n");
-    // Cria um nó da árvore B
-    btree_node node = btree_node_malloc(t);
-
-    // Calcula a posição do nó no arquivo
-    char *p = t->arquivo + rrn * btree_register_size(t);
-
-    // Lê os dados do nó
-    node.folha = *p++ == '1';
-    printf("\tDEBUG(btree_read): Valor de qtd_chaves antes da leitura: %d\n", node.qtd_chaves);
-    node.qtd_chaves = atoi(p);
-    printf("\tDEBUG(btree_read): Valor de qtd_chaves após a leitura: %d\n", node.qtd_chaves);
-    p += 2;
-
-    // Lê as chaves do nó
-    for (int i = 0; i < t->tam_chave; i++) {
-        strncpy(node.chaves[i], p, t->tam_chave);
-        p += t->tam_chave;
-    }
-
-    // Lê os filhos do nó
-    for (int i = 0; i < t->tam_chave + 1; i++) {
-        node.filhos[i] = atoi(p);
-        p += 3;
-    }
-
-    // Retorna o nó lido
+    btree_node node;
+    int offset = rrn * btree_register_size(t);
+    memcpy(&node, t->arquivo + offset, sizeof(btree_node));
     return node;
 }
 
@@ -1122,26 +991,8 @@ btree_node btree_read(int rrn, btree *t) {
  * @param t Árvore-B na qual será feita a escrita do nó.
  */
 void btree_write(btree_node no, btree *t) {
-    printf("\tDEBUG(btree_write): Entrou na função btree_write\n");
-    printf("\tDEBUG(btree_write): Estado da árvore após a inserção:\n");
-    printf("\tDEBUG(btree_write): Qtd de chaves: %d, RRN: %d\n", no.qtd_chaves, no.this_rrn);
-    char *p = t->arquivo + no.this_rrn * btree_register_size(t);
-
-    *p++ = no.folha ? '1' : '0';
-    p += sprintf(p, "%02d", no.qtd_chaves);
-
-    for (int i = 0; i < t->tam_chave; i++) {
-        if (i < no.qtd_chaves) {
-            strncpy(p, no.chaves[i], t->tam_chave);
-        } else {
-            memset(p, '#', t->tam_chave);
-        }
-        p += t->tam_chave;
-    }
-
-    for (int i = 0; i < t->tam_chave + 1; i++) {
-        p += sprintf(p, "%03d", i < no.qtd_chaves + 1 ? no.filhos[i] : -1);
-    }
+    int offset = no.this_rrn * btree_register_size(t);
+    memcpy(t->arquivo + offset, &no, sizeof(btree_node));
 }
 
 /**
@@ -1150,34 +1001,12 @@ void btree_write(btree_node no, btree *t) {
  * @param t Árvore-B base para o qual será alocado um struct btree_node.
  */
 btree_node btree_node_malloc(btree *t) {
-    printf("\tDEBUG(btree_node_malloc): Entrou na função btree_node_malloc\n");
-    printf("\tDEBUG(btree_node_malloc): Tamanho da chave: %d\n", t->tam_chave);
     btree_node node;
-    node.qtd_chaves = 0;
-    printf("\tDEBUG(btree_node_malloc): Valor de qtd_chaves após a alocação: %d\n", node.qtd_chaves);
-    node.chaves = malloc(t->tam_chave * sizeof(char *));
-    if (node.chaves == NULL) {
-        printf("\tDEBUG(btree_node_malloc): Falha ao alocar memória para node.chaves\n");
-        return node;
-    }
-    for (int i = 0; i < t->tam_chave; i++) {
-        node.chaves[i] = malloc((t->tam_chave + 1) * sizeof(char));
-        if (node.chaves[i] == NULL) {
-            printf("\tDEBUG(btree_node_malloc): Falha ao alocar memória para node.chaves[%d]\n", i);
-            return node;
-        }
-        // Inicializa a chave com uma string vazia
-        node.chaves[i][0] = '\0';
-    }
-    node.filhos = malloc((t->tam_chave + 1) * sizeof(int));
-    if (node.filhos == NULL) {
-        printf("\tDEBUG(btree_node_malloc): Falha ao alocar memória para node.filhos\n");
-        return node;
-    }
+    node.chaves = (char **)malloc((t->tam_chave + 1) * sizeof(char *));
     for (int i = 0; i < t->tam_chave + 1; i++) {
-        node.filhos[i] = -1;
+        node.chaves[i] = (char *)malloc((t->tam_chave + 1) * sizeof(char));
     }
-    node.folha = false;
+    node.filhos = (int *)malloc((t->tam_chave + 2) * sizeof(int));
     return node;
 }
 
@@ -1187,9 +1016,7 @@ btree_node btree_node_malloc(btree *t) {
  * @param t Árvore-B base para o qual será calculado o tamanho.
  */
 int btree_register_size(btree *t) {
-    printf("\tDEBUG(btree_register_size): Entrou na função btree_register_size\n");
     int chaves_ordenadas = (btree_order-1)*t->tam_chave;
-    printf("\tDEBUG(btree_register_size): Saindo na função btree_register_size.\n");
     return 3 + chaves_ordenadas + 1 + (btree_order*3);
 }
 
@@ -1217,59 +1044,47 @@ int btree_register_size(btree *t) {
  * @return Retorna o indice do elemento encontrado ou -1 se não encontrou. 
  */
 int busca_binaria_com_reps(const void *key, const void *base0, size_t nmemb, size_t size, int (*compar)(const void *, const void *), bool exibir_caminho, int posicao_caso_repetido, int retorno_se_nao_encontrado) {
-    printf("\tDEBUG(busca_binaria_com_reps): Entrou na função busca_binaria_com_reps\n");
-    int low = 0;
-    int high = nmemb - 1;
-    int mid;
-    int comp;
-    int first_occurrence = -1;
-    int last_occurrence = -1;
-
-    while (low <= high) {
-        mid = low + (high - low + 1) / 2; // arredondamento para cima
-        comp = compar(key, (char *)base0 + mid * size);
-
+    const char *base = base0;
+    size_t low = 0;
+    size_t high = nmemb;
+    size_t mid;
+    int cond;
+    while (low < high) {
+        mid = low + ((high - low) / 2);
         if (exibir_caminho) {
-            printf("%d ", mid);
+            printf("%zu ", mid);
         }
-
-        if (comp == 0) {
-            first_occurrence = (first_occurrence == -1) ? mid : first_occurrence;
-            last_occurrence = mid;
-            high = mid - 1;
-        } else if (comp < 0) {
-            high = mid - 1;
-        } else {
+        cond = compar(key, base + mid * size);
+        if (cond < 0) {
+            high = mid;
+        } else if (cond > 0) {
             low = mid + 1;
+        } else {
+            if (posicao_caso_repetido == -1) {
+                while (mid > 0 && compar(key, base + (mid - 1) * size) == 0) {
+                    mid--;
+                }
+            } else if (posicao_caso_repetido == 1) {
+                while (mid < nmemb - 1 && compar(key, base + (mid + 1) * size) == 0) {
+                    mid++;
+                }
+            }
+            return mid;
         }
     }
-
-    if (first_occurrence != -1) {
-        if (posicao_caso_repetido == -1) {
-            return first_occurrence;
-        } else if (posicao_caso_repetido == 1) {
-            return last_occurrence;
-        } else {
-            return first_occurrence + (last_occurrence - first_occurrence) / 2;
-        }
-    } else {
-        if (retorno_se_nao_encontrado == -1) {
-            return high;
-        } else if (retorno_se_nao_encontrado == 1) {
-            return low;
-        } else {
-            return -1;
-        }
+    if (retorno_se_nao_encontrado == -1 && low > 0) {
+        return low - 1;
+    } else if (retorno_se_nao_encontrado == 1 && low < nmemb) {
+        return low;
     }
+    return -1;
 }
 
 int busca_binaria(const void *key, const void *base0, size_t nmemb, size_t size, int (*compar)(const void *, const void *), bool exibir_caminho, int retorno_se_nao_encontrado) {
-    printf("\tDEBUG(busca_binaria): Entrou na função busca_binaria\n");
 	return busca_binaria_com_reps(key, base0, nmemb, size, compar, exibir_caminho, 0, retorno_se_nao_encontrado);
 }
 
 char *strpadright(char *str, char pad, unsigned size) {
-    printf("\tDEBUG(strpadright): Entrou na função strpadright\n");
 	for (unsigned i = strlen(str); i < size; ++i)
 		str[i] = pad;
 	str[size] = '\0';
@@ -1277,13 +1092,11 @@ char *strpadright(char *str, char pad, unsigned size) {
 }
 
 char *strupr(char *str) {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	for (char *p = str; *p; ++p)
 		*p = toupper(*p);
 	return str;
 }
 char *strlower(char *str) {
-    printf("\tDEBUG(F): Entrou na função F\n");
 	for (char *p = str; *p; ++p)
 		*p = tolower(*p);
 	return str;
