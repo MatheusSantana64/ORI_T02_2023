@@ -358,28 +358,41 @@ void escrever_registro_corrida(Corrida i, int rrn) {
 
 /* Funções principais */
 void cadastrar_corredor_menu(char *id_corredor, char *nome, char *apelido) {
+    // Cria uma string para armazenar a chave do corredor (id_corredor + RRN)
     char corredor_str[TAM_CHAVE_CORREDORES_IDX + 1];
+    
+    // Formata a string da chave do corredor para conter o id_corredor e o RRN do registro do corredor
     sprintf(corredor_str, "%s%04d", id_corredor, qtd_registros_corredores);
+    
+    // Busca a chave do corredor no índice corredores_idx
     bool found = btree_search(NULL, false, corredor_str, corredores_idx.rrn_raiz, &corredores_idx);
+    
+    // Se a chave do corredor já existe no índice, imprime uma mensagem de erro e retorna
     if (found) {
         printf(ERRO_PK_REPETIDA, id_corredor);
         return;
     }
 
+    // Cria uma nova estrutura Corredor e preenche seus campos com os valores fornecidos
     Corredor c;
     strcpy(c.id_corredor, id_corredor);
     strcpy(c.nome, nome);
     strcpy(c.apelido, apelido);
+    c.saldo = 0.0;
     current_datetime(c.cadastro);
-    c.saldo = 0;
-    for (int i = 0; i < QTD_MAX_VEICULO; i++) {
+    for(int i = 0; i < QTD_MAX_VEICULO; ++i)
         c.veiculos[i][0] = '\0';
-    }
 
+    // Escreve o novo registro de corredor no final do arquivo de dados ARQUIVO_CORREDORES
     escrever_registro_corredor(c, qtd_registros_corredores);
+
+    // Insere a nova chave do corredor no índice corredores_idx
     btree_insert(corredor_str, &corredores_idx);
+
+    // Incrementa a quantidade de registros de corredores
     qtd_registros_corredores++;
 
+    // Imprime uma mensagem de sucesso
     printf(SUCESSO);
 }
 
@@ -394,19 +407,33 @@ void adicionar_saldo_menu(char *id_corredor, double valor) {
 
 void adicionar_saldo(char *id_corredor, double valor, bool flag) {
     char corredor_str[TAM_CHAVE_CORREDORES_IDX + 1];
-    sprintf(corredor_str, "%s%04d", id_corredor, qtd_registros_corredores);
-    bool found = btree_search(NULL, false, corredor_str, corredores_idx.rrn_raiz, &corredores_idx);
+    bool found = false;
+    int rrn_corredor;
+
+    // Procura o corredor em todos os registros
+    for (rrn_corredor = 0; rrn_corredor < qtd_registros_corredores; rrn_corredor++) {
+        sprintf(corredor_str, "%s%04d", id_corredor, rrn_corredor);
+        found = btree_search(corredor_str, false, corredor_str, corredores_idx.rrn_raiz, &corredores_idx);
+        if (found) {
+            break;
+        }
+    }
+
     if (!found) {
         printf(ERRO_REGISTRO_NAO_ENCONTRADO);
         return;
     }
+
     if (valor <= 0) {
         printf(ERRO_VALOR_INVALIDO);
         return;
     }
-    Corredor c = recuperar_registro_corredor(qtd_registros_corredores);
+
+    // Recupera o corredor usando o RRN encontrado
+    Corredor c = recuperar_registro_corredor(atoi(corredor_str + TAM_ID_CORREDOR - 1));
     c.saldo += valor;
-    escrever_registro_corredor(c, qtd_registros_corredores);
+    escrever_registro_corredor(c, atoi(corredor_str + TAM_ID_CORREDOR - 1));
+
     if (flag) {
         printf(SUCESSO);
     }
@@ -686,20 +713,17 @@ bool inverted_list_binary_search(int* result, bool exibir_caminho, char *chave, 
  */
 void btree_insert(char *chave, btree *t) {
     promovido_aux promo = btree_insert_aux(chave, t->rrn_raiz, t);
-    if (promo.filho_direito < 0) {
-        return;
+    if (promo.chave_promovida[0] != '\0') {
+        btree_node new_root = btree_node_malloc(t);
+        strcpy(new_root.chaves[0], promo.chave_promovida);
+        new_root.filhos[0] = t->rrn_raiz;
+        new_root.filhos[1] = promo.filho_direito;
+        new_root.qtd_chaves = 1;
+        new_root.folha = false;
+        new_root.this_rrn = t->qtd_nos;
+        t->rrn_raiz = t->qtd_nos++;
+        btree_write(new_root, t);
     }
-
-    btree_node new_node = btree_node_malloc(t);
-    new_node.this_rrn = t->qtd_nos++;
-    new_node.qtd_chaves = 1;
-    new_node.folha = false;
-    strcpy(new_node.chaves[0], promo.chave_promovida);
-    new_node.filhos[0] = t->rrn_raiz;
-    new_node.filhos[1] = promo.filho_direito;
-    t->rrn_raiz = new_node.this_rrn;
-
-    btree_write(new_node, t);
 }
 
 /**
@@ -712,39 +736,39 @@ void btree_insert(char *chave, btree *t) {
  * @return Retorna uma struct do tipo promovido_aux que contém a chave promovida e o RRN do filho direito.
  */
 promovido_aux btree_insert_aux(char *chave, int rrn, btree *t) {
-    promovido_aux promo = {.filho_direito = -1};
+    promovido_aux promo;
     if (rrn < 0) {
         strcpy(promo.chave_promovida, chave);
-        return promo;
-    }
-
-    btree_node node = btree_read(rrn, t);
-    int i;
-    bool found = btree_binary_search(&i, false, chave, &node, t);
-    if (found) {
-        printf(ERRO_PK_REPETIDA, chave);
         promo.filho_direito = -1;
         return promo;
     }
-
-    promo = btree_insert_aux(chave, node.filhos[i], t);
-    if (promo.filho_direito < 0) {
+    btree_node node = btree_read(rrn, t);
+    int i = 0;
+    while (i < node.qtd_chaves && t->compar(chave, node.chaves[i]) > 0) {
+        i++;
+    }
+    if (i < node.qtd_chaves && t->compar(chave, node.chaves[i]) == 0) {
+        printf("Chave duplicada\n");
         return promo;
     }
-
-    if (node.qtd_chaves < btree_order - 1) {
-        for (int j = node.qtd_chaves; j > i; j--) {
+    promo = btree_insert_aux(chave, node.filhos[i], t);
+    if (promo.chave_promovida[0] == '\0') {
+        return promo;
+    }
+    if (node.qtd_chaves < t->tam_chave) {
+        int j = node.qtd_chaves;
+        while (j > i) {
             strcpy(node.chaves[j], node.chaves[j - 1]);
             node.filhos[j + 1] = node.filhos[j];
+            j--;
         }
         strcpy(node.chaves[i], promo.chave_promovida);
         node.filhos[i + 1] = promo.filho_direito;
         node.qtd_chaves++;
         btree_write(node, t);
-        promo.filho_direito = -1;
+        promo.chave_promovida[0] = '\0';
         return promo;
     }
-
     return btree_divide(promo, &node, i, t);
 }
 
@@ -758,33 +782,38 @@ promovido_aux btree_insert_aux(char *chave, int rrn, btree *t) {
  * @return Retorna uma struct do tipo promovido_aux que contém a chave promovida e o RRN do filho direito.
  */
 promovido_aux btree_divide(promovido_aux promo, btree_node *node, int i, btree *t) {
+    promovido_aux p;
     btree_node new_node = btree_node_malloc(t);
-    new_node.this_rrn = t->qtd_nos++;
-    new_node.folha = node->folha;
 
-    int j;
-    for (j = 0; j < btree_order / 2 - 1; j++) {
-        strcpy(new_node.chaves[j], node->chaves[j + btree_order / 2 + 1]);
-        new_node.filhos[j] = node->filhos[j + btree_order / 2 + 1];
-    }
-    new_node.filhos[j] = node->filhos[j + btree_order / 2 + 1];
-    new_node.qtd_chaves = j;
+    int middle = t->tam_chave / 2;
 
-    node->qtd_chaves = btree_order / 2;
-
-    if (i < btree_order / 2) {
-        strcpy(node->chaves[btree_order / 2 - 1], promo.chave_promovida);
-        node->filhos[btree_order] = new_node.this_rrn;
-    } else {
-        strcpy(node->chaves[btree_order / 2], promo.chave_promovida);
-        node->filhos[btree_order] = promo.filho_direito;
-        promo.filho_direito = new_node.this_rrn;
+    // Move half of the keys to the new node
+    for (int j = 0; j < middle; j++) {
+        strcpy(new_node.chaves[j], node->chaves[j + middle + 1]);
     }
 
-    btree_write(*node, t);
+    // If the node is not a leaf, also move the children
+    if (!node->folha) {
+        for (int j = 0; j <= middle; j++) {
+            new_node.filhos[j] = node->filhos[j + middle + 1];
+        }
+    }
+
+    // Update the number of keys in the original and new nodes
+    node->qtd_chaves = (t->tam_chave / 2) + (t->tam_chave % 2);
+    new_node.qtd_chaves = (t->tam_chave / 2) + (t->tam_chave % 2);
+
+    // Write the new node to the end of the B-tree file
+    new_node.this_rrn = node->qtd_chaves;
+    t->qtd_nos++;
+
     btree_write(new_node, t);
 
-    return promo;
+    // Return the middle key and the RRN of the new node
+    strcpy(p.chave_promovida, node->chaves[middle]);
+    p.filho_direito = new_node.this_rrn;
+
+    return p;
 }
 
 /**
@@ -890,11 +919,13 @@ bool btree_search(char *result, bool exibir_caminho, char *chave, int rrn, btree
         return false;
     }
     btree_node node = btree_read(rrn, t);
-    int i;
-    bool found = btree_binary_search(&i, exibir_caminho, chave, &node, t);
-    if (found) {
+    int i = 0;
+    while (i < node.qtd_chaves && t->compar(chave, node.chaves[i]) > 0) {
+        i++;
+    }
+    if (i < node.qtd_chaves && t->compar(chave, node.chaves[i]) == 0) {
         if (result != NULL) {
-            strncpy(result, node.chaves[i], t->tam_chave);
+            strcpy(result, node.chaves[i]);
         }
         return true;
     } else if (node.folha) {
@@ -979,20 +1010,9 @@ bool btree_print_in_order(char *chave_inicio, char *chave_fim, bool (*exibir)(ch
  * @param t Árvore-B na qual será feita a leitura do nó.
  */
 btree_node btree_read(int rrn, btree *t) {
-    btree_node node = btree_node_malloc(t);
-    char *p = t->arquivo + (rrn * btree_register_size(t));
-    sscanf(p, "%03d", &node.qtd_chaves);
-    p += 3;
-    for (int i = 0; i < btree_order - 1; i++) {
-        strncpy(node.chaves[i], p, t->tam_chave);
-        p += t->tam_chave;
-    }
-    node.folha = *p == 'T';
-    p++;
-    for (int i = 0; i < btree_order; i++) {
-        sscanf(p, "%03d", &node.filhos[i]);
-        p += 3;
-    }
+    btree_node node;
+    int offset = rrn * btree_register_size(t);
+    memcpy(&node, t->arquivo + offset, sizeof(btree_node));
     return node;
 }
 
@@ -1003,27 +1023,8 @@ btree_node btree_read(int rrn, btree *t) {
  * @param t Árvore-B na qual será feita a escrita do nó.
  */
 void btree_write(btree_node no, btree *t) {
-    char *p = t->arquivo + (no.this_rrn * btree_register_size(t));
-    sprintf(p, "%03d", no.qtd_chaves);
-    p += 3;
-    for (int i = 0; i < btree_order - 1; i++) {
-        if (i < no.qtd_chaves) {
-            strncpy(p, no.chaves[i], t->tam_chave);
-        } else {
-            memset(p, '#', t->tam_chave);
-        }
-        p += t->tam_chave;
-    }
-    *p = no.folha ? 'T' : 'F';
-    p++;
-    for (int i = 0; i < btree_order; i++) {
-        if (i <= no.qtd_chaves) {
-            sprintf(p, "%03d", no.filhos[i]);
-        } else {
-            strcpy(p, "***");
-        }
-        p += 3;
-    }
+    int offset = no.this_rrn * btree_register_size(t);
+    memcpy(t->arquivo + offset, &no, sizeof(btree_node));
 }
 
 /**
@@ -1033,8 +1034,11 @@ void btree_write(btree_node no, btree *t) {
  */
 btree_node btree_node_malloc(btree *t) {
     btree_node node;
-    node.chaves = malloc((t->tam_chave + 1) * btree_order);
-    node.filhos = malloc(sizeof(int) * (btree_order + 1));
+    node.chaves = (char **)malloc((t->tam_chave + 1) * sizeof(char *));
+    for (int i = 0; i < t->tam_chave + 1; i++) {
+        node.chaves[i] = (char *)malloc((t->tam_chave + 1) * sizeof(char));
+    }
+    node.filhos = (int *)malloc((t->tam_chave + 2) * sizeof(int));
     return node;
 }
 
@@ -1072,44 +1076,40 @@ int btree_register_size(btree *t) {
  * @return Retorna o indice do elemento encontrado ou -1 se não encontrou. 
  */
 int busca_binaria_com_reps(const void *key, const void *base0, size_t nmemb, size_t size, int (*compar)(const void *, const void *), bool exibir_caminho, int posicao_caso_repetido, int retorno_se_nao_encontrado) {
-    int inicio = 0;
-    int fim = nmemb - 1;
-    int meio;
-    int posicao_encontrada = -1;
-
-    while (inicio <= fim) {
-        meio = (inicio + fim) / 2;
+    const char *base = base0;
+    size_t low = 0;
+    size_t high = nmemb;
+    size_t mid;
+    int cond;
+    while (low < high) {
+        mid = low + ((high - low) / 2);
         if (exibir_caminho) {
-            printf("%d ", meio);
+            printf("%zu ", mid);
         }
-        int cmp = compar(key, (char *)base0 + meio * size);
-        if (cmp < 0) {
-            fim = meio - 1;
-        } else if (cmp > 0) {
-            inicio = meio + 1;
+        cond = compar(key, base + mid * size);
+        if (cond < 0) {
+            high = mid;
+        } else if (cond > 0) {
+            low = mid + 1;
         } else {
-            posicao_encontrada = meio;
-            if (posicao_caso_repetido < 0) {
-                fim = meio - 1;
-            } else if (posicao_caso_repetido > 0) {
-                inicio = meio + 1;
-            } else {
-                break;
+            if (posicao_caso_repetido == -1) {
+                while (mid > 0 && compar(key, base + (mid - 1) * size) == 0) {
+                    mid--;
+                }
+            } else if (posicao_caso_repetido == 1) {
+                while (mid < nmemb - 1 && compar(key, base + (mid + 1) * size) == 0) {
+                    mid++;
+                }
             }
+            return mid;
         }
     }
-
-    if (posicao_encontrada == -1) {
-        if (retorno_se_nao_encontrado < 0) {
-            return fim;
-        } else if (retorno_se_nao_encontrado > 0) {
-            return inicio;
-        } else {
-            return -1;
-        }
-    } else {
-        return posicao_encontrada;
+    if (retorno_se_nao_encontrado == -1 && low > 0) {
+        return low - 1;
+    } else if (retorno_se_nao_encontrado == 1 && low < nmemb) {
+        return low;
     }
+    return -1;
 }
 
 int busca_binaria(const void *key, const void *base0, size_t nmemb, size_t size, int (*compar)(const void *, const void *), bool exibir_caminho, int retorno_se_nao_encontrado) {
